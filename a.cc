@@ -73,16 +73,35 @@ int main(int argc,char *argv[]) {
 
     vector<string> data = getDataInInputFile(dataFileName);
     vector<string> vantagePoints;
-    vantagePoints.push_back("AGTC");
-    vantagePoints.push_back("CTGG");
+    vantagePoints.push_back("TGACTGACTG");
+    vantagePoints.push_back("AGTCAGTCAG");
     vector<TransformedSpacePoint> transformedSpaceData = getTransformedSpacePoint(data,vantagePoints);
-    printTransformedSpacePoints(transformedSpaceData);
-    puts("");
 
-    // CTTC 2,2
+//    printTransformedSpacePoints(transformedSpaceData);
+
+    /*
+     * test tie cnt
+     */
+    int a[55][55]={};
+    int N = (int)data[0].length();
+    printf("%s:%s\n",vantagePoints[0].c_str(),vantagePoints[1].c_str());
     for ( int i = 0 ; i < (int)transformedSpaceData.size() ; i++ ) {
-        string test = "CTTC";
-        if ( getDistance(transformedSpaceData[i].originalSequence,test) == 1 ) 
+        TransformedSpacePoint t = transformedSpaceData[i];
+        if ( t.coordinate[0] == 5 && t.coordinate[1] == 2 ) 
+            printf("%s\n",t.originalSequence.c_str());
+        a[t.coordinate[0]][t.coordinate[1]]++;
+    }
+    for ( int i = 0 ; i <= N ; i++ ) {
+        for ( int j = 0 ; j <= N ; j++ ) 
+            printf("%4d ",a[i][j]);
+        puts("");
+    }
+    /*
+     * test transformed data range query
+     */
+    for ( int i = 0 ; i < (int)transformedSpaceData.size() ; i++ ) {
+        string test = "AGTCGGGCAG";
+        if ( getDistance(transformedSpaceData[i].originalSequence,test) == 2 ) 
             printTransformedSpacePoint(transformedSpaceData[i]);
     }
     return 0;
