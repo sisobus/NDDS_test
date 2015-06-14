@@ -1,3 +1,4 @@
 run
 data/*
 output/*
+python_plot/data/*
