@@ -222,14 +222,17 @@ def test3():
     i = 0
     for vp in vps:
         n = len(datas)
-        mx_dist = 0
-        for cur_data in datas:
-            cur_dist = hamming_distance(vp,cur_data)
-            if mx_dist < cur_dist:
-                mx_dist = cur_dist
-        ans.append(Int_Index(mx_dist,i))
+        x = [ [] for j in xrange(31) ]
+        for j in xrange(n):
+            next_position = hamming_distance(vp,datas[j])
+            x[next_position].append(j)
+        mx = 0
+        for j in xrange(31):
+            if mx < len(x[j]):
+                mx = len(x[j])
+        ans.append(Int_Index(mx,i))
         print i
-        i = i+1
+        i = i + 1
     ans.sort()
     for i in xrange(5):
         vp_idx = ans[i].id
