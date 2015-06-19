@@ -187,20 +187,28 @@ def rf(a):
         return 'D'
 
 def test3():
-    vps = generate_regular_vp()
+#    vps = generate_regular_vp()
+    vps = []
     datas = get_data_in_file('data/data_100000_30_1.txt')
     count = [ [ 0 for j in xrange(4) ] for i in xrange(NUMBER_OF_DIMENSION) ]
     for i in xrange(len(datas)):
         n = NUMBER_OF_DIMENSION
         for j in xrange(n):
             count[j][f(datas[i][j])] = count[j][f(datas[i][j])] + 1
+    for i in xrange(4):
+        for j in xrange(NUMBER_OF_DIMENSION):
+            print count[j][i],
+        print ''
     major = []
     minor = []
+    second = []
+    third  = []
     for i in xrange(NUMBER_OF_DIMENSION):
         mx = 0
         mx_idx = 0
         mn = 987654321
         mn_idx = 0
+        tmp = []
         for j in xrange(4):
             if mx < count[i][j]:
                 mx = count[i][j]
@@ -208,12 +216,27 @@ def test3():
             if mn > count[i][j]:
                 mn = count[i][j]
                 mn_idx = j
+        for j in xrange(4):
+            if not ((mx == count[i][j] and mx_idx == j) or (mn == count[i][j] and mn_idx == j)):
+                tmp.append(j)
+        if count[i][tmp[0]] < count[i][tmp[1]]:
+            tt = tmp[0]
+            tmp[0] = tmp[1]
+            tmp[1] = tt
         major.append(rf(mx_idx))
         minor.append(rf(mn_idx))
+        second.append(rf(tmp[0]))
+        third.append(rf(tmp[1]))
     print major
     print minor
+    print second
+    print third
     vps.append(major)
     vps.append(minor)
+    vps.append(second)
+    vps.append(third)
+    vps.append(major[:len(major)/2]+minor[len(minor)/2:])
+    vps.append(minor[:len(minor)/2]+major[len(major)/2:])
 
 
 
@@ -234,7 +257,7 @@ def test3():
         print i
         i = i + 1
     ans.sort()
-    for i in xrange(5):
+    for i in xrange(6):
         vp_idx = ans[i].id
         cur_vp = vps[vp_idx]
         x = [ [] for j in xrange(31) ]
