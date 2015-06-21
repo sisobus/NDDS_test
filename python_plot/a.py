@@ -58,7 +58,7 @@ def test1():
     for i in xrange(6):
         vps.append(generate_random_vp())
 
-    datas = get_data_in_file('data/data_100000_30_10.txt')
+    datas = get_data_in_file('data/data_100000_30_1_4.txt')
 
     for vp in vps:
         i = 0
@@ -80,7 +80,7 @@ def test2():
         vps.append(generate_random_vp())
         '''
 
-    datas = get_data_in_file('data/data_100000_30_1.txt')
+    datas = get_data_in_file('data/data_100000_30_1_4.txt')
 
     cur_datas = datas
     vp_number = 0
@@ -113,10 +113,13 @@ def test2():
         print len(cur_datas)
         vp_number = vp_number + 1
 
-def print_graph(xp,yp):
+def print_graph(image_name,xp,yp):
     plt.plot(xp,yp,lw=2)
     plt.xlim(0,31)
-    plt.show()
+    #plt.show()
+    plt.savefig(image_name,dpi=100)
+    plt.clf()
+
 
 
 def generate_regular_vp():
@@ -189,7 +192,7 @@ def rf(a):
 def test3():
 #    vps = generate_regular_vp()
     vps = []
-    datas = get_data_in_file('data/data_100000_30_1.txt')
+    datas = get_data_in_file('data/data_100000_30_1_4.txt')
     count = [ [ 0 for j in xrange(4) ] for i in xrange(NUMBER_OF_DIMENSION) ]
     for i in xrange(len(datas)):
         n = NUMBER_OF_DIMENSION
@@ -272,7 +275,7 @@ def test3():
             yp.append(len(x[j]))
         print cur_vp
         print yp
-        print_graph(xp,yp)
+        print_graph('figure/%d.png'%i,xp,yp)
 
 
 
