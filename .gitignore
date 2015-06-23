@@ -2,3 +2,7 @@ run
 data/*
 output/*
 python_plot/data/*
+python_plot/figure/*
+python_plot/d1/*
+python_plot/vp/*
+python_plot/vpCorrelationTest/*
